@@ -2,7 +2,7 @@
 
 *Created by Seva Ivanov and David Rawlia for CART 351 in autmumn of 2016.*
 
-Originally written on GitHub which can be previewed at [here](https://sevaivanov.github.io/cart351-a1/) and it will be available on [tumahn.net/cart/351/corporate-landing-page/](https://tumahn.net/cart/351/corporate-landing-page/) soon.
+Available at : [https://sevaivanov.github.io/cart351/](https://sevaivanov.github.io/cart351/)
 
 The purpose is to explore the mystic company of the video game Half-Life called Black Mesa.
 

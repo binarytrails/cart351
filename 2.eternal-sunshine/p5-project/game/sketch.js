@@ -1,3 +1,22 @@
+/*
+    Todo:
+        Evade speed variation
+        Glow effect
+            filter( BLUR, 2 ); // too much to handle for a browser
+        Maps function:
+            Snow map
+            Sand map
+        Particles
+        
+    Unsure:
+        Keep follow
+        Turn 180 degrees on walls
+        
+    Done:
+        Reset on tag
+        Basic evade
+*/
+
 var joel,
     clementine,
     frame,
@@ -28,13 +47,22 @@ function setup()
     */  
   
     // Background
-    for(var i=0; i<80; i++)
+    for(var i = 0; i < 400; i++)
     {
         //create a sprite and add the 3 animations
-        var rock = createSprite(random(-width, surface_w+width), random(-height, surface_h+height));
-        //cycles through rocks 0 1 2
-        rock.addAnimation("normal", "assets/rocks"+i%3+".png");
-        surface_bg.add(rock);
+        var ground_particle = createSprite(
+            random(-width, surface_w + width),
+            random(-height, surface_h + height)
+        );
+        
+        ground_particle.draw = function()
+        {
+            // snow
+            fill(209, 228, 245);
+            ellipse(0, 0, 10, 10);
+        }
+        
+        surface_bg.add(ground_particle);
     }
     //frame = loadImage("assets/frame.png");
     
@@ -58,33 +86,41 @@ function setup()
     joel.draw = function()
     {
         fill(82, 165, 159);
-        push();
         rotate(radians(this.getDirection()));
         ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
-        pop();
     }
     joel.maxSpeed = 10;
     
     clementine.draw = function()
     {
         fill(102, 152, 255);
-        push();
-        //rotate(radians(this.getDirection()));
+        rotate(radians(this.getDirection()));
         ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
-        pop();
     }
     clementine.maxSpeed = 15;
     
 }
 
-function draw() {
+function reset_game()
+{
+    joel.position.x = 200;
+    joel.position.y = 200;
+    
+    clementine.position.y = random(500, surface_w - 100);
+    clementine.position.y = random(500, surface_h - 100);
+}
+
+function draw()
+{
+    // sand background
     background(255, 248, 198);
     
     //animation(ghost, 300, 150);
     //animation(asterisk, 500, 150);
         
     limit_sprite_position([joel, clementine]);
-    evade_sprite(joel, clementine);
+    
+    handle_sprites_interactions(joel, clementine);
     
     // speed = 1/distance_mouse
     joel.velocity.x = (camera.mouseX-joel.position.x)/20;
@@ -102,20 +138,34 @@ function draw() {
     //image(frame, 0, 0);
 }
 
-function evade_sprite(catching, evading)
+function handle_sprites_interactions(catching, evading)
 {
     // speed = 1/distance_mouse
     //evading.position.x = (catching.position.x + 100);
     //evading.position.y = (catching.position.y + 100);
     
-    var distance_x = Math.abs(catching.position.x - catching.position.x);
+    var distance_x = Math.abs(catching.position.x - evading.position.x);
     var distance_y = Math.abs(catching.position.y - evading.position.y);
+   
+    // Joel catched up Clementine
+    if (distance_x < 5 && distance_y < 5)
+    {
+        reset_game();
+        return;
+    }
     
-    console.log(distance_x);
-    if(distance_x < 200 && distance_y < 200)
+    // Clementine sees Joel
+    if (distance_x < 200 && distance_y < 200)
     {
         evading.velocity.x = catching.velocity.x;
-        evading.velocity.y = catching.velocity.y;
+        evading.velocity.y = catching.velocity.y;   
+        
+        // // walls trap
+        // if (evading.position.x < 0 || evading.postion.x > surface_w)
+        // {
+        //     console.log('X Wall');
+        //     evading.velocity.x = evading.velocity.x * -1;
+        // }
     }
         // else
         // if(distance_x < 500 && distance_y < 500)
@@ -123,7 +173,7 @@ function evade_sprite(catching, evading)
         //     evading.velocity.x = catching.velocity.x * random(0.8, 1.2);
         //     evading.velocity.y = catching.velocity.y * random(0.8, 1.2);
         // }
-    else
+    else // Clementine can't see Joel
     {
         evading.velocity.x = 0;
         evading.velocity.y = 0;

@@ -1,12 +1,11 @@
 /*
     Todo:
+        Genetic evolution
         Evade speed variation
         Glow effect
             filter( BLUR, 2 ); // too much to handle for a browser
-        Maps function:
-            Snow map
-            Sand map
-        Particles
+                https://github.com/processing/p5.js/issues/1388
+        Falling Particles
         
     Unsure:
         Keep follow
@@ -15,6 +14,9 @@
     Done:
         Reset on tag
         Basic evade
+        Maps function:
+            Snow map
+            Sand map
 */
 
 var joel,
@@ -24,44 +26,47 @@ var joel,
     surface_w = 4000,
     surface_h = 3000;
 
-function preload()
-{
-    //create an animation from a sequence of numbered images
-    //pass the first and the last file name and it will try to find the ones in between
-    ghost = loadAnimation("assets/ghost_standing0001.png", "assets/ghost_standing0007.png");
-      
-    //create an animation listing all the images files
-    asterisk = loadAnimation("assets/asterisk.png", "assets/triangle.png", "assets/square.png", "assets/cloud.png", "assets/star.png", "assets/mess.png", "assets/monster.png");
-}
+var maps,
+    current_map;
+
+function preload(){}
 
 function setup()
 {
     createCanvas(windowWidth, windowHeight);
     
     surface_bg = new Group();
+
+    maps = {
+        beach_snow : {
+            colors: {
+                background: '#FFF8C6',
+                particles: '#92E1FF'    // 7ECDFF
+            }
+        },
+        frozen_lake : {
+            colors: {
+                background: '#F0FFFF',  // azure
+                particles: '#56A5EC'    // iceberg
+            }
+        }
+    }
+    current_map = Object.keys(maps)[0];
     
-    /*
-    var bg_sand = createSprite(1000, 700);
-    bg_sand.addAnimation("normal", "assets/images/background/white-sand.jpg");
-    surface_bg.add(bg_sand);
-    */  
-  
-    // Background
+    // Particles
     for(var i = 0; i < 400; i++)
     {
-        //create a sprite and add the 3 animations
         var ground_particle = createSprite(
             random(-width, surface_w + width),
             random(-height, surface_h + height)
         );
-        
+   
         ground_particle.draw = function()
         {
-            // snow
-            fill(209, 228, 245);
+            fill(maps[current_map].colors.particles);
             ellipse(0, 0, 10, 10);
         }
-        
+
         surface_bg.add(ground_particle);
     }
     //frame = loadImage("assets/frame.png");
@@ -94,6 +99,7 @@ function setup()
     clementine.draw = function()
     {
         fill(102, 152, 255);
+        //filter(BLUR, 4);
         rotate(radians(this.getDirection()));
         ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
     }
@@ -103,6 +109,8 @@ function setup()
 
 function reset_game()
 {
+    load_next_map();
+
     joel.position.x = 200;
     joel.position.y = 200;
     
@@ -112,12 +120,9 @@ function reset_game()
 
 function draw()
 {
-    // sand background
-    background(255, 248, 198);
+    // Initial background color
+    background(maps[current_map].colors.background);
     
-    //animation(ghost, 300, 150);
-    //animation(asterisk, 500, 150);
-        
     limit_sprite_position([joel, clementine]);
     
     handle_sprites_interactions(joel, clementine);
@@ -203,5 +208,62 @@ function limit_sprite_position(sprites)
         {
             sprite.position.y = surface_h;
         }
+    }
+}
+
+// It modifies background - only call this function from draw()
+function load_next_map()
+{
+    var maps_array = Object.keys(maps);
+    
+    for (var i = 0; i < maps_array.length; i++)
+    {
+        var name = maps_array[i];
+    
+        if (!current_map)
+        {
+            update_map_colors(
+                maps[name].colors.background,
+                maps[name].colors.particles
+            );
+            current_map = name;
+            break;
+        }
+        else
+        if (name == current_map)
+        {
+            if (i == maps_array.length - 1)
+            {
+                // Set load first map
+                name = maps_array[0];
+            }
+            else
+            {
+                // Set load next map
+                name = maps_array[i + 1];
+            }
+            update_map_colors(
+                 maps[name].colors.background,
+                 maps[name].colors.particles
+            );
+            current_map = name;
+            break;
+        }
+    }
+}
+
+// It modifies background - only call this function from draw()
+function update_map_colors(bg_color, particles_color)
+{
+    background(bg_color);
+    
+    // Background particles
+    for (var i = 0; i < surface_bg.length; i++)
+    {
+        surface_bg[i].draw = function()
+        {
+            fill(particles_color);
+            ellipse(0, 0, 10, 10);
+        };
     }
 }

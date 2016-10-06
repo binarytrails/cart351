@@ -171,7 +171,7 @@ function handle_sprites_interactions(catching, evading)
     var distance_y = Math.abs(catching.position.y - evading.position.y);
    
     // Joel catched up Clementine
-    if (distance_x < 5 && distance_y < 5)
+    if (distance_x < 6 && distance_y < 6)
     {
         reset_game();
         return;
@@ -193,41 +193,35 @@ function handle_sprites_interactions(catching, evading)
     
     // else
     
-    if(distance_x < 200 && distance_y < 200)
+    // Clementine is almost colliding -> probability of velocity x 4
+    if (distance_x < 100 && distance_y < 100)
     {
-        
-
-        clementine.draw = function()
-        {
-            fill(255, 0, 0, 240);
-            ellipse(0, 0, 100, 100)
-        }
-        
-        // Creates very sharp laggy movements
-        //evading.velocity.x = catching.velocity.x * random(1, 2);
-        //evading.velocity.y = catching.velocity.y * random(1, 2);
-        
-        // Noise would smooth it https://p5js.org/reference/#/p5/noise
-        
-        xoff += 0.01;         //1 / Math.pow(10, 10);
+        xoff -= 0.01;
         console.log(xoff);
-        var n = noise(xoff) * 3;
-        console.log('n : ' + n);
+        var n = noise(xoff) * 4;
         
         evading.velocity.x = catching.velocity.x * n;
-        evading.velocity.y = catching.velocity.y * n;
-        console.log('x : ' + evading.velocity.x);
-        console.log('y : ' + evading.velocity.y);
+        evading.velocity.y = -catching.velocity.y * n;
+    }
+    // Clementine sees Joel from distance -> probability of velocity x 4
+    else if (distance_x < 200 && distance_y < 200)
+    {
+        xoff += 0.01;
+        console.log(xoff);
+        var n = noise(xoff) * 3;
+        
+        evading.velocity.x = -catching.velocity.x * n;
+        evading.velocity.y = -catching.velocity.y * n;
         
     }
     else // Clementine can't see Joel
     {
         xoff -= 0.01;
         console.log(xoff);
-        var n = noise(xoff);
+        var n = noise(xoff) * 4;
         
-        evading.velocity.x = catching.velocity.x * n;
-        evading.velocity.y = catching.velocity.y * n;
+        evading.velocity.x = -catching.velocity.x * n;
+        evading.velocity.y = -catching.velocity.y * n;
         console.log('x : ' + evading.velocity.x);
         console.log('y : ' + evading.velocity.y);
 

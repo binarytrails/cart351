@@ -6,6 +6,7 @@
             filter( BLUR, 2 ); // too much to handle for a browser
                 https://github.com/processing/p5.js/issues/1388
         Falling Particles
+        Collision colors - Journey Game
         
     Unsure:
         Keep follow
@@ -28,6 +29,8 @@ var joel,
 
 var maps,
     current_map;
+    
+var xoff = 0.0;
 
 function preload(){}
 
@@ -35,6 +38,15 @@ function setup()
 {
     createCanvas(windowWidth, windowHeight);
     
+    init_surface();
+    init_characters();
+    
+    // init_interactions()
+    //randomSeed(99);
+}
+
+function init_surface()
+{
     surface_bg = new Group();
 
     maps = {
@@ -70,7 +82,10 @@ function setup()
         surface_bg.add(ground_particle);
     }
     //frame = loadImage("assets/frame.png");
-    
+}
+
+function init_characters()
+{
     // x, y, w, h
     joel = createSprite(200, 200, 50, 100);
     clementine = createSprite(500, 500, 50, 100);
@@ -90,21 +105,22 @@ function setup()
     
     joel.draw = function()
     {
-        fill(82, 165, 159);
-        rotate(radians(this.getDirection()));
-        ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
+        fill(82, 165, 159, 240);
+        //rotate(radians(this.getDirection()));
+        //ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
+        ellipse(0, 0, 100, 100);
     }
     joel.maxSpeed = 10;
     
     clementine.draw = function()
     {
-        fill(102, 152, 255);
+        fill(102, 152, 255, 240);
         //filter(BLUR, 4);
-        rotate(radians(this.getDirection()));
-        ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
+        //rotate(radians(this.getDirection()));
+        //ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
+        ellipse(0, 0, 100, 100)
     }
-    clementine.maxSpeed = 15;
-    
+    //clementine.maxSpeed = 50; // 15
 }
 
 function reset_game()
@@ -143,6 +159,8 @@ function draw()
     //image(frame, 0, 0);
 }
 
+//var speed_change = true;
+
 function handle_sprites_interactions(catching, evading)
 {
     // speed = 1/distance_mouse
@@ -159,29 +177,68 @@ function handle_sprites_interactions(catching, evading)
         return;
     }
     
-    // Clementine sees Joel
-    if (distance_x < 200 && distance_y < 200)
-    {
-        evading.velocity.x = catching.velocity.x;
-        evading.velocity.y = catching.velocity.y;   
+    // // Clementine sees Joel
+    // if (distance_x < 200 && distance_y < 200)
+    // {
+    //     evading.velocity.x = catching.velocity.x;
+    //     evading.velocity.y = catching.velocity.y;   
         
-        // // walls trap
-        // if (evading.position.x < 0 || evading.postion.x > surface_w)
-        // {
-        //     console.log('X Wall');
-        //     evading.velocity.x = evading.velocity.x * -1;
-        // }
+    //     // // walls trap
+    //     // if (evading.position.x < 0 || evading.postion.x > surface_w)
+    //     // {
+    //     //     console.log('X Wall');
+    //     //     evading.velocity.x = evading.velocity.x * -1;
+    //     // }
+    // }
+    
+    // else
+    
+    if(distance_x < 200 && distance_y < 200)
+    {
+        
+
+        clementine.draw = function()
+        {
+            fill(255, 0, 0, 240);
+            ellipse(0, 0, 100, 100)
+        }
+        
+        // Creates very sharp laggy movements
+        //evading.velocity.x = catching.velocity.x * random(1, 2);
+        //evading.velocity.y = catching.velocity.y * random(1, 2);
+        
+        // Noise would smooth it https://p5js.org/reference/#/p5/noise
+        
+        xoff += 0.01;         //1 / Math.pow(10, 10);
+        console.log(xoff);
+        var n = noise(xoff) * 3;
+        console.log('n : ' + n);
+        
+        evading.velocity.x = catching.velocity.x * n;
+        evading.velocity.y = catching.velocity.y * n;
+        console.log('x : ' + evading.velocity.x);
+        console.log('y : ' + evading.velocity.y);
+        
     }
-        // else
-        // if(distance_x < 500 && distance_y < 500)
-        // {
-        //     evading.velocity.x = catching.velocity.x * random(0.8, 1.2);
-        //     evading.velocity.y = catching.velocity.y * random(0.8, 1.2);
-        // }
     else // Clementine can't see Joel
     {
-        evading.velocity.x = 0;
-        evading.velocity.y = 0;
+        xoff -= 0.01;
+        console.log(xoff);
+        var n = noise(xoff);
+        
+        evading.velocity.x = catching.velocity.x * n;
+        evading.velocity.y = catching.velocity.y * n;
+        console.log('x : ' + evading.velocity.x);
+        console.log('y : ' + evading.velocity.y);
+
+        //evading.velocity.x = 0;
+        //evading.velocity.y = 0;
+        
+        clementine.draw = function()
+        {
+            fill(102, 152, 255, 240);
+            ellipse(0, 0, 100, 100)
+        }
     }
 }
 

@@ -30,7 +30,7 @@ var joel,
 var maps,
     current_map;
     
-var xoff = 0.0;
+var xoff = 1.0;
 
 function preload(){}
 
@@ -167,79 +167,53 @@ function handle_sprites_interactions(catching, evading)
     //evading.position.x = (catching.position.x + 100);
     //evading.position.y = (catching.position.y + 100);
     
-    var distance_x = Math.abs(catching.position.x - evading.position.x);
-    var distance_y = Math.abs(catching.position.y - evading.position.y);
+    var distance_x = Math.abs(
+        catching.position.x - evading.position.x
+    );
+    var distance_y = Math.abs(
+        catching.position.y - evading.position.y
+    );
    
+    var n; // noise TODO remove
+    
     // Joel catched up Clementine
     if (distance_x < 5 && distance_y < 5)
     {
         reset_game();
         return;
     }
-    
-    // // Clementine sees Joel
-    // if (distance_x < 200 && distance_y < 200)
-    // {
-    //     evading.velocity.x = catching.velocity.x;
-    //     evading.velocity.y = catching.velocity.y;   
-        
-    //     // // walls trap
-    //     // if (evading.position.x < 0 || evading.postion.x > surface_w)
-    //     // {
-    //     //     console.log('X Wall');
-    //     //     evading.velocity.x = evading.velocity.x * -1;
-    //     // }
-    // }
-    
-    // else
-    
-    if(distance_x < 200 && distance_y < 200)
+    // Clementine sees Joel
+    else if(distance_x < 200 && distance_y < 200)
     {
-        
-
-        clementine.draw = function()
-        {
-            fill(255, 0, 0, 240);
-            ellipse(0, 0, 100, 100)
-        }
-        
-        // Creates very sharp laggy movements
-        //evading.velocity.x = catching.velocity.x * random(1, 2);
-        //evading.velocity.y = catching.velocity.y * random(1, 2);
-        
-        // Noise would smooth it https://p5js.org/reference/#/p5/noise
-        
-        xoff += 0.01;         //1 / Math.pow(10, 10);
-        console.log(xoff);
-        var n = noise(xoff) * 3;
-        console.log('n : ' + n);
+        xoff += 0.01;
+        n = noise(xoff) * 3;
         
         evading.velocity.x = catching.velocity.x * n;
         evading.velocity.y = catching.velocity.y * n;
-        console.log('x : ' + evading.velocity.x);
-        console.log('y : ' + evading.velocity.y);
         
     }
-    else // Clementine can't see Joel
+    // Clementine starting lose sight of Joel
+    else
     {
-        xoff -= 0.01;
-        console.log(xoff);
-        var n = noise(xoff);
-        
-        evading.velocity.x = catching.velocity.x * n;
-        evading.velocity.y = catching.velocity.y * n;
-        console.log('x : ' + evading.velocity.x);
-        console.log('y : ' + evading.velocity.y);
-
-        //evading.velocity.x = 0;
-        //evading.velocity.y = 0;
-        
-        clementine.draw = function()
+        // Dropping gradually velocity
+        if (xoff > 0.00)
         {
-            fill(102, 152, 255, 240);
-            ellipse(0, 0, 100, 100)
+            xoff -= 0.001;
+            n = noise(xoff) * 3;
+        
+            evading.velocity.x = catching.velocity.x * n;
+            evading.velocity.y = catching.velocity.y * n;
         }
+        // Clementine can't see Joel
+        else
+        {
+            xoff = 0.00;
+            evading.velocity.x = 0;
+            evading.velocity.y = 0;
+        } 
     }
+    console.log('o : ' + xoff);
+    console.log('n : ' + n);
 }
 
 function limit_sprite_position(sprites)

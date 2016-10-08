@@ -173,8 +173,6 @@ function handle_sprites_interactions(catching, evading)
     var distance_y = Math.abs(
         catching.position.y - evading.position.y
     );
-   
-    var n; // noise TODO remove
     
     // Joel catched up Clementine
     if (distance_x < 5 && distance_y < 5)
@@ -186,23 +184,33 @@ function handle_sprites_interactions(catching, evading)
     else if(distance_x < 200 && distance_y < 200)
     {
         xoff += 0.01;
-        n = noise(xoff) * 3;
+        var n = noise(xoff) * 3;
         
         evading.velocity.x = catching.velocity.x * n;
         evading.velocity.y = catching.velocity.y * n;
         
+        clementine.draw = function()
+        {
+            fill(255, 152, 255, 240);
+            ellipse(0, 0, 100, 100)
+        }
     }
     // Clementine starting lose sight of Joel
     else
     {
+        clementine.draw = function()
+        {
+            fill(255, 0, 0);
+            ellipse(0, 0, 100, 100)
+        }
         // Dropping gradually velocity
         if (xoff > 0.00)
         {
-            xoff -= 0.001;
-            n = noise(xoff) * 3;
+            var down_by = 0.001,
+                xoff -= down_by;
         
-            evading.velocity.x = catching.velocity.x * n;
-            evading.velocity.y = catching.velocity.y * n;
+            evading.velocity.x -= down_by;
+            evading.velocity.y -= down_by;
         }
         // Clementine can't see Joel
         else
@@ -212,8 +220,6 @@ function handle_sprites_interactions(catching, evading)
             evading.velocity.y = 0;
         } 
     }
-    console.log('o : ' + xoff);
-    console.log('n : ' + n);
 }
 
 function limit_sprite_position(sprites)

@@ -138,9 +138,10 @@ function draw()
 {
     // Initial background color
     background(maps[current_map].colors.background);
-    
-    limit_sprite_position([joel, clementine]);
-    
+
+    limit_sprite_position(joel, 0);
+    limit_sprite_position(clementine, 100);
+
     handle_sprites_interactions(joel, clementine);
     
     // speed = 1/distance_mouse
@@ -163,18 +164,12 @@ function draw()
 
 function handle_sprites_interactions(catching, evading)
 {
-    // speed = 1/distance_mouse
-    //evading.position.x = (catching.position.x + 100);
-    //evading.position.y = (catching.position.y + 100);
-    
     var distance_x = Math.abs(
         catching.position.x - evading.position.x
     );
     var distance_y = Math.abs(
         catching.position.y - evading.position.y
     );
-   
-    var n; // noise TODO remove
     
     // Joel catched up Clementine
     if (distance_x < 5 && distance_y < 5)
@@ -182,11 +177,16 @@ function handle_sprites_interactions(catching, evading)
         reset_game();
         return;
     }
+    else
+    {
+        bounce_on_walls(evading);
+    }
+    
     // Clementine sees Joel
-    else if(distance_x < 200 && distance_y < 200)
+    if(distance_x < 150 && distance_y < 150)
     {
         xoff += 0.01;
-        n = noise(xoff) * 3;
+        var n = noise(xoff) * 3;
         
         evading.velocity.x = catching.velocity.x * n;
         evading.velocity.y = catching.velocity.y * n;
@@ -199,7 +199,7 @@ function handle_sprites_interactions(catching, evading)
         if (xoff > 0.00)
         {
             xoff -= 0.001;
-            n = noise(xoff) * 3;
+            var n = noise(xoff) * 3;
         
             evading.velocity.x = catching.velocity.x * n;
             evading.velocity.y = catching.velocity.y * n;
@@ -212,33 +212,75 @@ function handle_sprites_interactions(catching, evading)
             evading.velocity.y = 0;
         } 
     }
-    console.log('o : ' + xoff);
-    console.log('n : ' + n);
 }
 
-function limit_sprite_position(sprites)
+// WIP
+function bounce_on_walls(sprite)
 {
-    for (var i = 0; i < sprites.length; i++)
+    return;
+
+    var near_wall = false,
+        // from what range the walls will influence the sprite
+        range = 400;
+
+    // West
+    if(sprite.position.x < range)
     {
-        var sprite = sprites[i];
-        
-        if(sprite.position.x < 0)
+        // Dropping gradually velocity
+        if (xoff > 0.00)
         {
-            sprite.position.x = 0;
+            xoff -= 0.1; // stops at -0.1
+            n = noise(xoff) * 3;
         }
-        if(sprite.position.x > surface_w)
+        else // < 0.00
         {
-            sprite.position.x = surface_w;
+            xoff -= 0.1;
+            n = noise(xoff) * 3;
         }
-        
-        if(sprite.position.y < 0)
-        {
-            sprite.position.y = 0;
-        }
-        if(sprite.position.y > surface_h)
-        {
-            sprite.position.y = surface_h;
-        }
+        sprite.velocity.x *= n;
+        console.log(xoff);
+        near_wall = true;
+    }
+    // East
+    if(sprite.position.x > surface_w - range)
+    {
+        sprite.position.x = surface_w;
+        near_wall = true;
+    }
+    // North
+    if(sprite.position.y < range)
+    {
+        sprite.position.y = 0;
+        near_wall = true;
+    }
+    // South
+    if(sprite.position.y > surface_h - range)
+    {
+        sprite.position.y = surface_h;
+        near_wall = true;
+    }
+
+    return near_wall;
+}
+
+function limit_sprite_position(sprite, distance)
+{
+    if(sprite.position.x < distance)
+    {
+        sprite.position.x = distance;
+    }
+    if(sprite.position.x > surface_w - distance)
+    {
+        sprite.position.x = surface_w - distance;
+    }
+    
+    if(sprite.position.y < distance)
+    {
+        sprite.position.y = distance;
+    }
+    if(sprite.position.y > surface_h - distance)
+    {
+        sprite.position.y = surface_h - distance;
     }
 }
 

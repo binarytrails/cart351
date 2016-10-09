@@ -139,7 +139,8 @@ function draw()
     // Initial background color
     background(maps[current_map].colors.background);
     
-    limit_sprite_position([joel, clementine]);
+    limit_sprite_position(joel, 0);
+    limit_sprite_position(clementine, 150);
     
     handle_sprites_interactions(joel, clementine);
     
@@ -159,14 +160,8 @@ function draw()
     //image(frame, 0, 0);
 }
 
-//var speed_change = true;
-
 function handle_sprites_interactions(catching, evading)
 {
-    // speed = 1/distance_mouse
-    //evading.position.x = (catching.position.x + 100);
-    //evading.position.y = (catching.position.y + 100);
-    
     var distance_x = Math.abs(
         catching.position.x - evading.position.x
     );
@@ -175,13 +170,13 @@ function handle_sprites_interactions(catching, evading)
     );
     
     // Joel catched up Clementine
-    if (distance_x < 5 && distance_y < 5)
+    if (distance_x < 10 && distance_y < 10)
     {
         reset_game();
         return;
     }
     // Clementine sees Joel
-    else if(distance_x < 200 && distance_y < 200)
+    else if(distance_x < 250 && distance_y < 250)
     {
         xoff += 0.01;
         var n = noise(xoff) * 3;
@@ -206,8 +201,8 @@ function handle_sprites_interactions(catching, evading)
         // Dropping gradually velocity
         if (xoff > 0.00)
         {
-            var down_by = 0.001,
-                xoff -= down_by;
+            var down_by = 0.01;
+            xoff -= down_by;
         
             evading.velocity.x -= down_by;
             evading.velocity.y -= down_by;
@@ -222,29 +217,24 @@ function handle_sprites_interactions(catching, evading)
     }
 }
 
-function limit_sprite_position(sprites)
+function limit_sprite_position(sprite, distance)
 {
-    for (var i = 0; i < sprites.length; i++)
+    if(sprite.position.x < distance)
     {
-        var sprite = sprites[i];
-        
-        if(sprite.position.x < 0)
-        {
-            sprite.position.x = 0;
-        }
-        if(sprite.position.x > surface_w)
-        {
-            sprite.position.x = surface_w;
-        }
-        
-        if(sprite.position.y < 0)
-        {
-            sprite.position.y = 0;
-        }
-        if(sprite.position.y > surface_h)
-        {
-            sprite.position.y = surface_h;
-        }
+        sprite.position.x = distance;
+    }
+    if(sprite.position.x > surface_w - distance)
+    {
+        sprite.position.x = surface_w - distance;
+    }
+    
+    if(sprite.position.y < distance)
+    {
+        sprite.position.y = distance;
+    }
+    if(sprite.position.y > surface_h - distance)
+    {
+        sprite.position.y = surface_h - distance;
     }
 }
 

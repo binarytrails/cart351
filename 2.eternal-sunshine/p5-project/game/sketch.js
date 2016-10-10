@@ -91,16 +91,21 @@ function init_surface()
         // [-a:a,-b:b] defines generation box, default [0,0]
         // note: not sure what it does but it randomize well the snow source
         dxy: [2, 0],
-        lifetime: Math.pow(10, 40),
-        angle: [0,180],
+        lifetime: Math.pow(10, 10),
+        angle: [0, 180],
         size: [10, 20],
-        speed: 10,
+        speed: 5,
         speedx: 0.1,
-        rate: [10,1],
+        rate: [500, 1],
         x: 0.5,
-        y: -1
+        y: 0
     };
     falling_snow = new Fountain(null, snow_particles_template);
+    
+    // allow them to go anywhere
+    height = surface_h + height;
+    width = surface_w + width;
+
 }
 
 function init_characters()

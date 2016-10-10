@@ -28,10 +28,12 @@ var joel,
     surface_w = 4000,
     surface_h = 3000;
 
+var j_ne, j_nw, j_se, j_se;
+
 var maps,
     current_map;
     
-var xoff = 1.0;
+var xoff = 0.0;
 
 var falling_snow;
 
@@ -49,6 +51,11 @@ function setup()
 
     // init_interactions()
     //randomSeed(99);
+    
+    j_ne = loadImage("assets/images/j-ne-200.png");
+    j_nw = loadImage("assets/images/j-nw-200.png");
+    j_se = loadImage("assets/images/j-se-200.png");
+    j_sw = loadImage("assets/images/j-sw-200.png");
 }
 
 function init_surface()
@@ -118,19 +125,19 @@ function init_characters()
     joel = createSprite(200, 200, 50, 100);
     clementine = createSprite(500, 500, 50, 100);
     
-    /*
-    var joelAnimation = joel.addAnimation(
-        "floating",
-        "assets/ghost_standing0001.png",
-        "assets/ghost_standing0007.png"
-    );
+    
+    // var joelAnimation = joel.addAnimation(
+    //     "floating",
+    //     "assets/images/j-se-200.png"
+    // );
+    
     joel.addAnimation(
         "moving",
-        "assets/ghost_walk0001.png",
-        "assets/ghost_walk0004.png"
+        "assets/images/j-nw-200.png"
     );
-    joelAnimation.offY = 18;*/
-    
+    //joelAnimation.offY = 18;
+   
+    /*
     joel.draw = function()
     {
         fill(82, 165, 159, 240);
@@ -138,8 +145,8 @@ function init_characters()
         //ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
         ellipse(0, 0, 100, 100);
     }
-    joel.maxSpeed = 10;
     
+    */
     clementine.draw = function()
     {
         fill(102, 152, 255, 240);
@@ -148,6 +155,7 @@ function init_characters()
         //ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
         ellipse(0, 0, 100, 100)
     }
+    joel.maxSpeed = 10;
     //clementine.maxSpeed = 50; // 15
 }
 
@@ -181,6 +189,8 @@ function draw()
     camera.position.x = joel.position.x;
     camera.position.y = joel.position.y;
     
+    update_joel_animation();
+    
     drawSprites(surface_bg);
     drawSprite(joel);
     drawSprite(clementine);
@@ -192,6 +202,33 @@ function draw()
     fadein_surface_fg();
 
     camera.off();
+}
+
+function update_joel_animation()
+{
+    var direction, animation_image;
+
+    direction = ((joel.velocity.y > 0) ? "South" : "North") +
+                ((joel.velocity.x > 0) ? "East" : "West");
+    
+    switch (direction)
+    {
+        case "NorthWest":
+            animation_image = j_nw;
+            break;
+        case "NorthEast":
+            animation_image = j_ne;
+            break;
+        case "SouthWest":
+            animation_image = j_sw;
+            break;
+        case "SouthEast":
+            animation_image = j_se;
+            break;
+        default:
+            break;
+    }
+    joel.animation.images[0] = animation_image;
 }
 
 function handle_sprites_interactions(catching, evading)
@@ -217,21 +254,25 @@ function handle_sprites_interactions(catching, evading)
         
         evading.velocity.x = catching.velocity.x * n;
         evading.velocity.y = catching.velocity.y * n;
-        
+       
+        /* 
         clementine.draw = function()
         {
             fill(255, 152, 255, 240);
             ellipse(0, 0, 100, 100)
         }
+        */
     }
     // Clementine starting lose sight of Joel
     else
     {
+        /*
         clementine.draw = function()
         {
             fill(255, 0, 0);
             ellipse(0, 0, 100, 100)
         }
+        */
         // Dropping gradually velocity
         if (xoff > 0.00)
         {
@@ -353,7 +394,7 @@ function fadein_surface_fg()
         return;
     }
     
-    var precision = 0.001;
+    var precision = 1;//0.01;
     
     surface_fg_div.style(
         'opacity',

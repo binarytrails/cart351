@@ -24,6 +24,7 @@ var joel,
     clementine,
     frame,
     surface_bg,
+    surface_fg_div,
     surface_w = 4000,
     surface_h = 3000;
 
@@ -43,6 +44,9 @@ function setup()
     init_surface();
     init_characters();
     
+    surface_fg_div = createDiv('some text');
+    surface_fg_div.id('surface-overlay');
+
     // init_interactions()
     //randomSeed(99);
 }
@@ -65,7 +69,7 @@ function init_surface()
             }
         }
     }
-    current_map = Object.keys(maps)[0];
+    current_map = Object.keys(maps)[1];
     
     // Groud particles
     for(var i = 0; i < 400; i++)
@@ -185,8 +189,9 @@ function draw()
     falling_snow.location.x = joel.position.x;
     falling_snow.location.y = joel.position.y - height - 100;
 
+    fadein_surface_fg();
+
     camera.off();
-    //image(frame, 0, 0);
 }
 
 function handle_sprites_interactions(catching, evading)
@@ -337,3 +342,23 @@ function draw_falling_snow()
     );
     stroke(0);
 }
+
+var fadein_counter = 1.00;
+
+// TODO use frameRate() and seconds in arg
+function fadein_surface_fg()
+{
+    if (fadein_counter < 0.00)
+    {
+        return;
+    }
+    
+    var precision = 0.001;
+    
+    surface_fg_div.style(
+        'opacity',
+        1.00 * fadein_counter
+    );
+    fadein_counter -= precision;
+}
+

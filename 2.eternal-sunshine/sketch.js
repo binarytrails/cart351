@@ -30,13 +30,28 @@ var j_ne, j_nw, j_se, j_se,
     c_pole_images;
 
 var maps,
-    current_map;
+    current_map,
+    falling_snow;
 
+// used by noise for smooth clemantine evasion
 var xoff = 0.0;
 
-var falling_snow;
+var music_bg;
 
-function preload(){}
+function preload()
+{
+    j_ne = loadImage("assets/images/joel/200/j-ne.png");
+    j_nw = loadImage("assets/images/joel/200/j-nw.png");
+    j_se = loadImage("assets/images/joel/200/j-se.png");
+    j_sw = loadImage("assets/images/joel/200/j-sw.png");
+
+    c_ne = loadImage("assets/images/clementine/200/c-ne.png");
+    c_nw = loadImage("assets/images/clementine/200/c-nw.png");
+    c_se = loadImage("assets/images/clementine/200/c-se.png");
+    c_sw = loadImage("assets/images/clementine/200/c-sw.png");
+
+    music_bg = loadSound("assets/sound/bookstore.mp3");
+}
 
 function setup()
 {
@@ -48,27 +63,21 @@ function setup()
     surface_fg_div = createDiv('some text');
     surface_fg_div.id('surface-overlay');
 
-    j_ne = loadImage("assets/images/joel/200/j-ne.png");
-    j_nw = loadImage("assets/images/joel/200/j-nw.png");
-    j_se = loadImage("assets/images/joel/200/j-se.png");
-    j_sw = loadImage("assets/images/joel/200/j-sw.png");
     j_pole_images = {
         "NorthWest": j_nw,
         "NorthEast": j_ne,
         "SouthWest": j_sw,
         "SouthEast": j_se
     };
-
-    c_ne = loadImage("assets/images/clementine/200/c-ne.png");
-    c_nw = loadImage("assets/images/clementine/200/c-nw.png");
-    c_se = loadImage("assets/images/clementine/200/c-se.png");
-    c_sw = loadImage("assets/images/clementine/200/c-sw.png");
     c_pole_images = {
         "NorthWest": c_nw,
         "NorthEast": c_ne,
         "SouthWest": c_sw,
         "SouthEast": c_se
     };
+
+    music_bg.setVolume(0.1); // fails
+    music_bg.play();
 }
 
 function init_surface()

@@ -87,6 +87,10 @@ function init_surface()
     var snow_particles_template = {
         name: "snow_particles",
         colors: [maps[current_map].colors.particles],
+        // fraction of screen width/height, centered at xy
+        // [-a:a,-b:b] defines generation box, default [0,0]
+        // note: not sure what it does but it randomize well the snow source
+        dxy: [2, 0],
         lifetime: Math.pow(10, 40),
         angle: [0,180],
         size: [10, 20],
@@ -173,7 +177,7 @@ function draw()
     
     draw_falling_snow();
     falling_snow.location.x = joel.position.x;
-    falling_snow.location.y = joel.position.y;
+    falling_snow.location.y = joel.position.y - height - 100;
 
     camera.off();
     //image(frame, 0, 0);

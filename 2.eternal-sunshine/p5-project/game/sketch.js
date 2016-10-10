@@ -28,7 +28,11 @@ var joel,
     surface_w = 4000,
     surface_h = 3000;
 
-var j_ne, j_nw, j_se, j_se;
+var j_ne, j_nw, j_se, j_se,
+    j_pole_images;
+
+var c_ne, c_nw, c_se, c_se,
+    c_pole_images;
 
 var maps,
     current_map;
@@ -52,10 +56,27 @@ function setup()
     // init_interactions()
     //randomSeed(99);
     
-    j_ne = loadImage("assets/images/j-ne-200.png");
-    j_nw = loadImage("assets/images/j-nw-200.png");
-    j_se = loadImage("assets/images/j-se-200.png");
-    j_sw = loadImage("assets/images/j-sw-200.png");
+    j_ne = loadImage("assets/images/joel/200/j-ne.png");
+    j_nw = loadImage("assets/images/joel/200/j-nw.png");
+    j_se = loadImage("assets/images/joel/200/j-se.png");
+    j_sw = loadImage("assets/images/joel/200/j-sw.png");
+    j_pole_images = {
+        "NorthWest": j_nw,
+        "NorthEast": j_ne,
+        "SouthWest": j_sw,
+        "SouthEast": j_se
+    };
+    
+    c_ne = loadImage("assets/images/clementine/200/c-ne.png");
+    c_nw = loadImage("assets/images/clementine/200/c-nw.png");
+    c_se = loadImage("assets/images/clementine/200/c-se.png");
+    c_sw = loadImage("assets/images/clementine/200/c-sw.png");
+    c_pole_images = {
+        "NorthWest": c_nw,
+        "NorthEast": c_ne,
+        "SouthWest": c_sw,
+        "SouthEast": c_se
+    };
 }
 
 function init_surface()
@@ -135,6 +156,11 @@ function init_characters()
         "moving",
         "assets/images/j-nw-200.png"
     );
+    
+    clementine.addAnimation(
+        "moving",
+        "assets/images/c-nw-200.png"
+    );
     //joelAnimation.offY = 18;
    
     /*
@@ -146,7 +172,6 @@ function init_characters()
         ellipse(0, 0, 100, 100);
     }
     
-    */
     clementine.draw = function()
     {
         fill(102, 152, 255, 240);
@@ -155,6 +180,7 @@ function init_characters()
         //ellipse(0, 0, 100 + (this.getSpeed()/2), 100-(this.getSpeed()/2));
         ellipse(0, 0, 100, 100)
     }
+    */
     joel.maxSpeed = 10;
     //clementine.maxSpeed = 50; // 15
 }
@@ -189,7 +215,8 @@ function draw()
     camera.position.x = joel.position.x;
     camera.position.y = joel.position.y;
     
-    update_joel_animation();
+    set_sprite_image_according_to_poles(joel, j_pole_images);
+    set_sprite_image_according_to_poles(clementine, c_pole_images);
     
     drawSprites(surface_bg);
     drawSprite(joel);
@@ -204,31 +231,31 @@ function draw()
     camera.off();
 }
 
-function update_joel_animation()
+function set_sprite_image_according_to_poles(sprite, images)
 {
     var direction, animation_image;
 
-    direction = ((joel.velocity.y > 0) ? "South" : "North") +
-                ((joel.velocity.x > 0) ? "East" : "West");
+    direction = ((sprite.velocity.y > 0) ? "South" : "North") +
+                ((sprite.velocity.x > 0) ? "East" : "West");
     
     switch (direction)
     {
         case "NorthWest":
-            animation_image = j_nw;
+            animation_image = images['NorthWest'];
             break;
         case "NorthEast":
-            animation_image = j_ne;
+            animation_image = images['NorthEast'];
             break;
         case "SouthWest":
-            animation_image = j_sw;
+            animation_image = images['SouthWest'];
             break;
         case "SouthEast":
-            animation_image = j_se;
+            animation_image = images['SouthEast'];
             break;
         default:
             break;
     }
-    joel.animation.images[0] = animation_image;
+    sprite.animation.images[0] = animation_image;
 }
 
 function handle_sprites_interactions(catching, evading)
@@ -241,7 +268,7 @@ function handle_sprites_interactions(catching, evading)
     );
     
     // Joel catched up Clementine
-    if (distance_x < 10 && distance_y < 10)
+    if (distance_x < 50 && distance_y < 100)
     {
         reset_game();
         return;

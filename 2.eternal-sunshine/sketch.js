@@ -174,6 +174,8 @@ function reset_game()
 
 function draw()
 {
+    music_bg.setVolume(0.1); // forcing the setup
+
     // Initial background color
     background(maps[current_map].colors.background);
 

@@ -32,6 +32,8 @@ var maps,
     
 var xoff = 1.0;
 
+var falling_snow;
+
 function preload(){}
 
 function setup()
@@ -65,7 +67,7 @@ function init_surface()
     }
     current_map = Object.keys(maps)[0];
     
-    // Particles
+    // Groud particles
     for(var i = 0; i < 400; i++)
     {
         var ground_particle = createSprite(
@@ -81,7 +83,20 @@ function init_surface()
 
         surface_bg.add(ground_particle);
     }
-    //frame = loadImage("assets/frame.png");
+
+    var snow_particles_template = {
+        name: "snow_particles",
+        colors: [maps[current_map].colors.particles],
+        lifetime: Math.pow(10, 40),
+        angle: [0,180],
+        size: [10, 20],
+        speed: 10,
+        speedx: 0.1,
+        rate: [10,1],
+        x: 0.5,
+        y: -1
+    };
+    falling_snow = new Fountain(null, snow_particles_template);
 }
 
 function init_characters()
@@ -138,7 +153,7 @@ function draw()
 {
     // Initial background color
     background(maps[current_map].colors.background);
-    
+
     limit_sprite_position(joel, 0);
     limit_sprite_position(clementine, 150);
     
@@ -156,6 +171,10 @@ function draw()
     drawSprite(joel);
     drawSprite(clementine);
     
+    draw_falling_snow();
+    falling_snow.location.x = joel.position.x;
+    falling_snow.location.y = joel.position.y;
+
     camera.off();
     //image(frame, 0, 0);
 }
@@ -293,4 +312,18 @@ function update_map_colors(bg_color, particles_color)
             ellipse(0, 0, 10, 10);
         };
     }
+}
+
+function draw_falling_snow()
+{
+    falling_snow.Draw();
+    falling_snow.CreateN();
+    falling_snow.Step();
+    noStroke();
+    text(
+        falling_snow.length,
+        width/2,
+        20
+    );
+    stroke(0);
 }

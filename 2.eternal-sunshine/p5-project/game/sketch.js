@@ -145,6 +145,7 @@ function init_characters()
 function reset_game()
 {
     load_next_map();
+    falling_snow.colors.fill(maps[current_map].colors.particles);
 
     joel.position.x = 200;
     joel.position.y = 200;

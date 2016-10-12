@@ -122,7 +122,7 @@ function init_surface()
         colors: [maps[current_map].colors.particles],
         // fraction of screen width/height, centered at xy
         // [-a:a,-b:b] defines generation box, default [0,0]
-        // note: not sure what it does but it randomize well the snow source
+        // note: it randomize well the snow source
         dxy: [2, 0],
         lifetime: Math.pow(10, 10),
         angle: [0, 180],
@@ -135,7 +135,7 @@ function init_surface()
     };
     falling_snow = new Fountain(null, snow_particles_template);
 
-    // allow them to go anywhere
+    // falling snow particles can go anywhere
     height = surface_h + height;
     width = surface_w + width;
 }

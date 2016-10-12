@@ -124,18 +124,124 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </br>
                 &nbsp;&nbsp;&nbsp;&nbsp;2. Create your image in Adobe Illustrator</li>
                 </br></br>
+                One more thing I wanted to add is the falling snow. We have snow on the ground, let's explore the particles library of p5 to attempt creating falling snow : 
+            </p>
+            <div class="images">
+                <a href="process/images/code-falling-snow.png">
+                    <img src="process/images/code-falling-snow.png"></img>
+                </a>
+            </div>
+            <p>
+                To my suprise, it was very straight forward. The only part that I stumbled upon by hazard is the <i>dxy</i> argument that created the desired effect of snow falling from many places at the same time rather than having one unique source acting as a particles fountain.
+            </p>
+            
+            <p class="header">Week 2 - 3 : Motions</p>
+            <p>
+                It was definetly the hardess part for me. I never really did any game developement before and understanding the implementation of the physics right away is not fairily simple.
+            </br></br>
+            Joel mouvement is controlled by the mouse position which allow very interesting speed variations:
+            </br></br>
+            <i>joel.velocity.x = (camera.mouseX-joel.position.x)/20;</i></br>
+            <i>joel.velocity.y = (camera.mouseY-joel.position.y)/20;</i>
+            </br></br>
+            I did read that p5 has collision detection system but since our characters collision might depend on the user experience notion of catching someone rather than touching the borders of the characters image, I decided to use the position of players on the map to trigger collision events. From there, I made a little plan of what I need to achieve for my motions :
+            </p>
+            <div class="images">
+                <a href="process/images/motions-drawing.jpg">
+                    <img src="process/images/motions-drawing.jpg"></img>
+                </a>
+            </div>
+            <p>
+                The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine random evasion which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy mouvements because the random numbers jumped to quickly thus making the velocity changing in a too much rigid way. This brought me at trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) : 
+            </p>
+            <div class="images">
+                <a href="process/images/motions-1.png">
+                    <img src="process/images/motions-1.png"></img>
+                </a>
+            </div>
+            <p>
+                Right below, the second point was solved by decreasing velocity gradually and resetting the noise xoff value to zero :
+            </p>
+            <div class="images">
+                <a href="process/images/motions-2.png">
+                    <img src="process/images/motions-2.png"></img>
+                </a>
+            </div>
+            <p>
+                The third one, namely the "walls bouncing" was making Clementine too hard to catch. I decided to bypass it by making her stop further from the walls than Joel. It blocked the winning technique of putting Clementine in a corner because now Joel can right pass her which would restart her motion of running away :
+                </br></br>
+                <i>// function limit_sprite_position(sprite, distance)</i></br>
+                <i>limit_sprite_position(joel, 0);</i></br>
+                <i>limit_sprite_position(joel, 200);</i>
+            </p>
+            
+            <p class="header">Week 3 : Characters Design</p>
+            <p>
+                Finally, at the end of the last week, I have time for characters artwork. At first, I thought of using abstract glowing balls with colors corresponding to movie characters ones :
+            </p>
+            <div class="images">
+                <a href="process/0/j-ball.png">
+                    <img src="process/0/j-ball.png"></img>
+                </a>
+            </div>
+
+            <p>
+                After reflexion, these balls are too abstract for people to relate to them. It led me to explore a way to design characters to match my map and gameplay visuals. I really liked the aesthetics as well as the gameplay of the <a href="https://en.wikipedia.org/wiki/Journey_(2012_video_game)">Journey (2012 video game)</a> made by ThatGameCompagny which brought me into creating a hovering characters :
+            </p>
+            <div class="images">
+                <a href="process/images/joel-ai.png">
+                    <img src="process/images/joel-ai.png"></img>
+                </a>
+                <a href="process/images/j-1.png">
+                    <img src="process/images/j-1.png"></img>
+                </a>
+                <a href="process/images/c-1.png">
+                    <img src="process/images/c-1.png"></img>
+                </a>
+            </div>
+
+            <p>
+                To bind them to motions, I used velocity to determine the poles :
+            </p>
+            <div class="images">
+                <a href="process/images/code-poles.png">
+                    <img src="process/images/code-poles.png"></img>
+                </a>
+            </div>
+            <p>
+                By using two images (one front, one back) and reflecting them on horizontal, we now have 4 images for 4 directions.
+                </br></br>
+                I must admit that this design lacked a little bit of work. Thanks to Noémie Zozé, we managed to enhance their aesthetics due to her amazing drawing skills :
+            </p>
+            <div class="images">
+                <a href="process/images/c-ai-3d.png">
+                    <img src="process/images/c-ai-3d.png"></img>
+                </a>
+                <a href="process/images/j-2.png">
+                    <img src="process/images/j-2.png"></img>
+                </a>
+                <a href="process/images/c-2.png">
+                    <img src="process/images/c-2.png"></img>
+                </a>
+            </div>
+            <p>
+                The questionable Clemetine's hair were removed. The cap looking scarf from behind was changed and colors are looking way better by the use of gradient. We can clearly see the enhancement of the Design.
             </p>
 
-            TODO snow
-
-            <p class="header">Week 2 - 3 : Motions</p>
-
-            
-
-            <p class="header">Week 3 : Design</p>
-
-
-
+            <p class="header">Overview : Time <small>time <small>time</small> ...</small></small></p>
+            <p>
+                I am now writting this report and I do realize that I didn't had the time to implement the Genetic Programming. The project was undertaken by the majority as a team project. Plus, I switched class section which gave me only 2.5 weeks for it. Nevertheless, I wanted to test my limits from which I take an important lesson :
+                </br></br>
+                <i>One does not create a video game by itself in less than three weeks</i>
+                </br></br>
+                In the end, I am very satisfied of this final product for this timeframe. It has a unique gameplay with compeling aesthetics. The Genetic Programming brought me to this unique idea and it is now only a matter of hours to implement its evolution algorithm because it only needs to alter the velocity of Clementine to perform evolvution.
+                </br></br>
+                <a href="game.html">$ Play the game</a>
+                </br></br>
+                <i>Written & coded by Seva Ivanov</i>
+                </br></br>
+                Special thanks to Pippin Barr & Sabine Rosenberg.
+            </p>
         </div>
     </body>
 </html>

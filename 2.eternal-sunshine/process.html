@@ -60,7 +60,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
             <p class="header">Week 2 : Concept</p>
 
             <p>
-                At first, I started by looking into an original gameplay involving mouvement. The movie <a href="https://en.wikipedia.org/wiki/Run_Lola_Run">Run Lola Run</a> provided an interesting idea of mouving from point A to point B in a perpetual and repeating motion that starts over and over again. In the movie each time that Lola doesn't saves her boyfriend she dies and starts over again. This creates an opportunity for a system that evolves each time with a new iteration of an endless gameplay. However, this concept lacks originality as the user will have to run through obstacles which creates a typical running 2d gameplay.
+                At first, I started by looking into an original gameplay involving movement. The movie <a href="https://en.wikipedia.org/wiki/Run_Lola_Run">Run Lola Run</a> provided an interesting idea of mouving from point A to point B in a perpetual and repeating motion that starts over and over again. In the movie each time that Lola doesn't saves her boyfriend she dies and starts over again. This creates an opportunity for a system that evolves each time with a new iteration of an endless gameplay. However, this concept lacks originality as the user will have to run through obstacles which creates a typical running 2d gameplay.
                 </br></br>
                 From this point, I thought of using the emotional human aspect that is often lacking in video games. Thinking of a past long-term relationship brought me into thinking of what it represents losing someone very close over a longer timeframe. What is interesting is as time goes by everything slowly fades away but at the same time, these memories rise up as something very unique from this relation shows up. It reminded me about the movie <a href="https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind">Eternal Sunshine of the Spotless Mind</a> where both of the lovers end up undergoing memories erasing procedures which creates a sort of confusing mental state of seeing for a short time everything as it was in the past before realizing that it is only a memory.
                 </br></br>
@@ -110,7 +110,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                What is interesting, is that you can use modify shapes according to mouvement seen in the commented lines :
+                What is interesting, is that you can use modify shapes according to movement seen in the commented lines :
             </p>
             <div class="images">
                 <a href="process/code-circles-draw.png">
@@ -139,7 +139,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
             <p>
                 It was definetly the hardess part for me. I never really did any game developement before and understanding the implementation of the physics right away is not fairily simple.
             </br></br>
-            Joel mouvement is controlled by the mouse position which allow very interesting speed variations:
+            Joel movement is controlled by the mouse position which allow very interesting speed variations:
             </br></br>
             <i>joel.velocity.x = (camera.mouseX-joel.position.x)/20;</i></br>
             <i>joel.velocity.y = (camera.mouseY-joel.position.y)/20;</i>
@@ -152,7 +152,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine random evasion which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy mouvements because the random numbers jumped to quickly thus making the velocity changing in a too much rigid way. This brought me at trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) : 
+                The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine random evasion which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy movements because the random numbers jumped to quickly thus making the velocity changing in a too much rigid way. This brought me at trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) : 
             </p>
             <div class="images">
                 <a href="process/motions-1.png">

@@ -19,9 +19,11 @@ var joel,
     clementine,
     frame,
     surface_bg,
-    surface_fg_div,
     surface_w = 4000,
     surface_h = 3000;
+
+// HTML
+var surface_fg_div;
 
 // Sprites images
 var j_ne, j_nw, j_se, j_se,
@@ -36,7 +38,8 @@ var maps,
 // used by noise for smooth clemantine evasion
 var xoff = 0.0;
 
-var music_bg;
+var music_bg,
+    therapy_counter = 1;
 
 function preload()
 {
@@ -60,7 +63,7 @@ function setup()
     init_surface();
     init_characters();
 
-    surface_fg_div = createDiv('some text');
+    surface_fg_div = createDiv();
     surface_fg_div.id('surface-overlay');
 
     j_pole_images = {
@@ -162,6 +165,8 @@ function init_characters()
 
 function reset_game()
 {
+    therapy_counter++;
+
     load_next_map();
     falling_snow.colors.fill(maps[current_map].colors.particles);
 
@@ -208,6 +213,10 @@ function draw()
 
     fadein_surface_fg();
     camera.off();
+
+    fill(0, 0, 0, 70);
+    text('Therapy ' + therapy_counter, 10, 30);
+    textSize(40);
 }
 
 function set_sprite_image_according_to_poles(sprite, images)

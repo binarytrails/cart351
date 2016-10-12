@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Seva Ivanov">
+        <meta name="description" content="CART 351 : Networks & Navigation">
+
+        <link type="text/css" rel="stylesheet" href="process.css" />
+
+        <style type="text/css">
+            #main, #main a {color: black; background: white;}
+            #main, #main p {text-align: center; line-height: 1.5;}
+            #main p.header {width: 40%; margin: 2em 20% 0;}
+            #main p {display: inline-block; width: 40%; text-align: left;}
+            #main div.images {display: inline-block; width: 100%; margin: 0;}
+            #main div.images img {display: inline-block; width: 40%; margin: 1em 20%;}
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <p class="header">Eternal Sunshine Game</p>
+
+            <p>
+                <i>
+                    Use p5.js to create a web page that is a playful/toy-like homepage for a fictional character from a novel/film/TV show/videogame/etc. of your choice. You should focus your attention on how you can create interactivity with p5 to communicate something about the character’s personality/nature/story. Avoid a reliance on explanatory text, images, etc.
+                </i>
+            </p>
+
+            
+            <p class="header">Week 1 : Research</p>
+
+            <p>
+                I decided to take the challenge of implementing Genetic Programming for this video game. I never did any video game before but I had some experience in programming. I decided to attempt at learning and implementing everything by myself.
+                </br></br>
+I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="http://natureofcode.com/book/chapter-9-the-evolution-of-code/">Nature of Code</a> book. It was very interesting and douable but the hardest part was to find its usage. In one sentence, Genetic Programming allows you to set a sort of evolutionnary system where based on a fitness score, mutation and parents, the algorithm adapts to perform better at each new iteration (generation).
+                </br></br>
+                <b>Where should I use it?</b>
+                </br></br>
+                <b>1. Player is god</b>
+            </p>
+            <div class="images">
+                <a href="process/images/boxcar2d.png">
+                    <img src="process/images/boxcar2d.png"></img>
+                </a>
+            </div>
+            <p>
+                By looking at the example of <a href="http://boxcar2d.com/">BoxCar 2D</a>, you realize that one way of using this type of programming would be allowing a user to influence the evolution of your code by testing various parameters i.e. the number of wheels of your car. However, this creates a more greater challenge of actually finding a concepts that allows playful interaction without becoming cumbersome and confusing the user. In the context of this challenge we have to implement a game that tells something about a fictional character and it engages the user into an amusing gameplay without actually distracting the player from the main goal of learning about our character.
+                </br></br>
+                <b>2. Algorithm on its own</b>
+            </p>
+            <div class="images">
+                <a href="process/images/smart-rockets.png">
+                    <img src="process/images/smart-rockets.png"></img>
+                </a>
+            </div>
+            <p>
+                This approach is well demonstrated in <a href="http://www.blprnt.com/smartrockets/">Smart Rockets</a>. A player doesn't control the evolutionnary system but is an observer of its behavior. The rockets attempt to adapt to obstacles in order to hit the target after learning from its mistakes over several generations. This concept leverages the gameplay complexity and creates an opportunity of creating a simplistic intelligent system that could adapt to the user's behavior to increase the gameplay difficulty level.
+            </p>
+
+            <p class="header">Week 2 : Concept</p>
+
+            <p>
+                At first, I started by looking into an original gameplay involving mouvement. The movie <a href="https://en.wikipedia.org/wiki/Run_Lola_Run">Run Lola Run</a> provided an interesting idea of mouving from point A to point B in a perpetual and repeating motion that starts over and over again. In the movie each time that Lola doesn't saves her boyfriend she dies and starts over again. This creates an opportunity for a system that evolves each time with a new iteration of an endless gameplay. However, this concept lacks originality as the user will have to run through obstacles which creates a typical running 2d gameplay.
+                </br></br>
+                From this point, I thought of using the emotional human aspect that is often lacking in video games. Thinking of a past long-term relationship brought me into thinking of what it represents losing someone very close over a longer timeframe. What is interesting is as time goes by everything slowly fades away but at the same time, these memories rise up as something very unique from this relation shows up. It reminded me about the movie <a href="https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind">Eternal Sunshine of the Spotless Mind</a> where both of the lovers end up undergoing memories erasing procedures which creates a sort of confusing mental state of seeing for a short time everything as it was in the past before realizing that it is only a memory.
+                </br></br>
+                The gameplay will have a vast map and two characters namely Joel & Clementine. Joel will attempt to catch Clementine. Once he succeeds the game will restart all over again and he will have to find and catch Clementine that will become harder to catch. This would create a non-linear gameplay telling the story of an undergoing memory erasing procedure between the two lovers. As the player advances in the game, he therapy advances and eventually it erases completly the possibility of getting your hands on the memories of this person. Moreover, it would create an analogy of the notion of time and its unstoppable progression swallowing everything from the past.
+            </p>
+
+            <p class="header">Week 2 : Maps</p>
+            
+            <p>
+                I started by creating two maps which alter between each iteration. In the movie there were two scenes, one being at the beach with falling snow and another one being at the frozen lake also with falling snow. I wanted to create a map with sand which brought me at attempting to load a background image of sand :
+            </p>
+            <div class="images">
+                <a href="process/images/bg-sand-image.png">
+                    <img src="process/images/bg-sand-image.png"></img>
+                </a>
+            </div>
+            <p>
+                This was an unsucceful idea as I realized that a huge map will demand a repetition of the background creating a background with questionable aesthetics. This brought me into trying the generation and spreading my own particles using p5.play library :
+            </p>
+            <div class="images">
+                <a href="process/images/map-w-particles.png">
+                    <img src="process/images/map-w-particles.png"></img>
+                </a>
+            </div>
+            <p>
+                I stored the maps into Javascript objects and created ground snow particles as static sprites spreaded randomly all over the map :
+            </p>
+            <div class="images">
+                <a href="process/images/code-map-particles.png">
+                    <img src="process/images/code-map-particles.png"></img>
+                </a>
+            </div>
+            <p>
+                These objects allowed me to easily load the next map based on the current map. To change the map particles colors, I decided to update all the particles colors stored in the surface_bg global variable on the game reset :
+            </p>
+            <div class="images">
+                <a href="process/images/code-map-particles-color.png">
+                    <img src="process/images/code-map-particles-color.png"></img>
+                </a>
+            </div>
+            <p>
+                At the beggining, I decided to create characters as abstract circle shapes using the draw function :
+            </p>
+            <div class="images">
+                <a href="process/images/char-circles.png">
+                    <img src="process/images/char-circles.png"></img>
+                </a>
+            </div>
+            <p>
+                What is interesting, is that you can use modify shapes according to mouvement seen in the commented lines :
+            </p>
+            <div class="images">
+                <a href="process/images/code-circles-draw.png">
+                    <img src="process/images/code-circles-draw.png"></img>
+                </a>
+            </div>
+            <p>
+                However, I reached the limits of p5 drawing when I attempted to create a blur effect by applying a filter around the circles. The browser had a super long loading delay and a very lagy gameplay. <b>It brought me at trying the integrated p5's OpenGL which shutdowned my laptop by taking all of its RAM</b>. Prior to animation, I found two solutions :
+                </br></br>
+                &nbsp;&nbsp;&nbsp;&nbsp;1. Build your shape using CSS</li>
+                </br>
+                &nbsp;&nbsp;&nbsp;&nbsp;2. Create your image in Adobe Illustrator</li>
+                </br></br>
+            </p>
+
+            TODO snow
+
+            <p class="header">Week 2 - 3 : Motions</p>
+
+            
+
+            <p class="header">Week 3 : Design</p>
+
+
+
+        </div>
+    </body>
+</html>

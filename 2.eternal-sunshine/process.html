@@ -39,8 +39,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 <b>1. Player is god</b>
             </p>
             <div class="images">
-                <a href="process/images/boxcar2d.png">
-                    <img src="process/images/boxcar2d.png"></img>
+                <a href="process/boxcar2d.png">
+                    <img src="process/boxcar2d.png"></img>
                 </a>
             </div>
             <p>
@@ -49,8 +49,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 <b>2. Algorithm on its own</b>
             </p>
             <div class="images">
-                <a href="process/images/smart-rockets.png">
-                    <img src="process/images/smart-rockets.png"></img>
+                <a href="process/smart-rockets.png">
+                    <img src="process/smart-rockets.png"></img>
                 </a>
             </div>
             <p>
@@ -73,48 +73,48 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 I started by creating two maps which alter between each iteration. In the movie there were two scenes, one being at the beach with falling snow and another one being at the frozen lake also with falling snow. I wanted to create a map with sand which brought me at attempting to load a background image of sand :
             </p>
             <div class="images">
-                <a href="process/images/bg-sand-image.png">
-                    <img src="process/images/bg-sand-image.png"></img>
+                <a href="process/bg-sand-image.png">
+                    <img src="process/bg-sand-image.png"></img>
                 </a>
             </div>
             <p>
                 This was an unsucceful idea as I realized that a huge map will demand a repetition of the background creating a background with questionable aesthetics. This brought me into trying the generation and spreading my own particles using p5.play library :
             </p>
             <div class="images">
-                <a href="process/images/map-w-particles.png">
-                    <img src="process/images/map-w-particles.png"></img>
+                <a href="process/map-w-particles.png">
+                    <img src="process/map-w-particles.png"></img>
                 </a>
             </div>
             <p>
                 I stored the maps into Javascript objects and created ground snow particles as static sprites spreaded randomly all over the map :
             </p>
             <div class="images">
-                <a href="process/images/code-map-particles.png">
-                    <img src="process/images/code-map-particles.png"></img>
+                <a href="process/code-map-particles.png">
+                    <img src="process/code-map-particles.png"></img>
                 </a>
             </div>
             <p>
                 These objects allowed me to easily load the next map based on the current map. To change the map particles colors, I decided to update all the particles colors stored in the surface_bg global variable on the game reset :
             </p>
             <div class="images">
-                <a href="process/images/code-map-particles-color.png">
-                    <img src="process/images/code-map-particles-color.png"></img>
+                <a href="process/code-map-particles-color.png">
+                    <img src="process/code-map-particles-color.png"></img>
                 </a>
             </div>
             <p>
                 At the beggining, I decided to create characters as abstract circle shapes using the draw function :
             </p>
             <div class="images">
-                <a href="process/images/char-circles.png">
-                    <img src="process/images/char-circles.png"></img>
+                <a href="process/char-circles.png">
+                    <img src="process/char-circles.png"></img>
                 </a>
             </div>
             <p>
                 What is interesting, is that you can use modify shapes according to mouvement seen in the commented lines :
             </p>
             <div class="images">
-                <a href="process/images/code-circles-draw.png">
-                    <img src="process/images/code-circles-draw.png"></img>
+                <a href="process/code-circles-draw.png">
+                    <img src="process/code-circles-draw.png"></img>
                 </a>
             </div>
             <p>
@@ -127,8 +127,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 One more thing I wanted to add is the falling snow. We have snow on the ground, let's explore the particles library of p5 to attempt creating falling snow : 
             </p>
             <div class="images">
-                <a href="process/images/code-falling-snow.png">
-                    <img src="process/images/code-falling-snow.png"></img>
+                <a href="process/code-falling-snow.png">
+                    <img src="process/code-falling-snow.png"></img>
                 </a>
             </div>
             <p>
@@ -147,24 +147,24 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
             I did read that p5 has collision detection system but since our characters collision might depend on the user experience notion of catching someone rather than touching the borders of the characters image, I decided to use the position of players on the map to trigger collision events. From there, I made a little plan of what I need to achieve for my motions :
             </p>
             <div class="images">
-                <a href="process/images/motions-drawing.jpg">
-                    <img src="process/images/motions-drawing.jpg"></img>
+                <a href="process/motions-drawing.jpg">
+                    <img src="process/motions-drawing.jpg"></img>
                 </a>
             </div>
             <p>
                 The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine random evasion which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy mouvements because the random numbers jumped to quickly thus making the velocity changing in a too much rigid way. This brought me at trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) : 
             </p>
             <div class="images">
-                <a href="process/images/motions-1.png">
-                    <img src="process/images/motions-1.png"></img>
+                <a href="process/motions-1.png">
+                    <img src="process/motions-1.png"></img>
                 </a>
             </div>
             <p>
                 Right below, the second point was solved by decreasing velocity gradually and resetting the noise xoff value to zero :
             </p>
             <div class="images">
-                <a href="process/images/motions-2.png">
-                    <img src="process/images/motions-2.png"></img>
+                <a href="process/motions-2.png">
+                    <img src="process/motions-2.png"></img>
                 </a>
             </div>
             <p>
@@ -180,8 +180,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 Finally, at the end of the last week, I have time for characters artwork. At first, I thought of using abstract glowing balls with colors corresponding to movie characters ones :
             </p>
             <div class="images">
-                <a href="process/0/j-ball.png">
-                    <img src="process/0/j-ball.png"></img>
+                <a href="process/j-ball.png">
+                    <img src="process/j-ball.png"></img>
                 </a>
             </div>
 
@@ -189,14 +189,14 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 After reflexion, these balls are too abstract for people to relate to them. It led me to explore a way to design characters to match my map and gameplay visuals. I really liked the aesthetics as well as the gameplay of the <a href="https://en.wikipedia.org/wiki/Journey_(2012_video_game)">Journey (2012 video game)</a> made by ThatGameCompagny which brought me into creating a hovering characters :
             </p>
             <div class="images">
-                <a href="process/images/joel-ai.png">
-                    <img src="process/images/joel-ai.png"></img>
+                <a href="process/joel-ai.png">
+                    <img src="process/joel-ai.png"></img>
                 </a>
-                <a href="process/images/j-1.png">
-                    <img src="process/images/j-1.png"></img>
+                <a href="process/j-1.png">
+                    <img src="process/j-1.png"></img>
                 </a>
-                <a href="process/images/c-1.png">
-                    <img src="process/images/c-1.png"></img>
+                <a href="process/c-1.png">
+                    <img src="process/c-1.png"></img>
                 </a>
             </div>
 
@@ -204,8 +204,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 To bind them to motions, I used velocity to determine the poles :
             </p>
             <div class="images">
-                <a href="process/images/code-poles.png">
-                    <img src="process/images/code-poles.png"></img>
+                <a href="process/code-poles.png">
+                    <img src="process/code-poles.png"></img>
                 </a>
             </div>
             <p>
@@ -214,14 +214,14 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 I must admit that this design lacked a little bit of work. Thanks to Noémie Zozé, we managed to enhance their aesthetics due to her amazing drawing skills :
             </p>
             <div class="images">
-                <a href="process/images/c-ai-3d.png">
-                    <img src="process/images/c-ai-3d.png"></img>
+                <a href="process/c-ai-3d.png">
+                    <img src="process/c-ai-3d.png"></img>
                 </a>
-                <a href="process/images/j-2.png">
-                    <img src="process/images/j-2.png"></img>
+                <a href="process/j-2.png">
+                    <img src="process/j-2.png"></img>
                 </a>
-                <a href="process/images/c-2.png">
-                    <img src="process/images/c-2.png"></img>
+                <a href="process/c-2.png">
+                    <img src="process/c-2.png"></img>
                 </a>
             </div>
             <p>
@@ -232,9 +232,9 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
             <p>
                 I am now writting this report and I do realize that I didn't had the time to implement the Genetic Programming. The project was undertaken by the majority as a team project. Plus, I switched class section which gave me only 2.5 weeks for it. Nevertheless, I wanted to test my limits from which I take an important lesson :
                 </br></br>
-                <i>One does not create a video game by itself in less than three weeks</i>
+                <i>One does not create a video game in three weeks</i>
                 </br></br>
-                In the end, I am very satisfied of this final product for this timeframe. It has a unique gameplay with compeling aesthetics. The Genetic Programming brought me to this unique idea and it is now only a matter of hours to implement its evolution algorithm because it only needs to alter the velocity of Clementine to perform evolvution.
+                In the end, I am very satisfied of this final product. It has a unique gameplay with compeling aesthetics. The Genetic Programming brought me to this unique idea and it is now only a matter of hours to implement its evolution algorithm because it only needs to alter the velocity of Clementine to perform evolution.
                 </br></br>
                 <a href="game.html">$ Play the game</a>
                 </br></br>

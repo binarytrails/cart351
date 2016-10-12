@@ -179,7 +179,7 @@ function reset_game()
 
 function draw()
 {
-    music_bg.setVolume(0.1); // forcing the setup
+    loop_music();
 
     // Initial background color
     background(maps[current_map].colors.background);
@@ -397,4 +397,14 @@ function fadein_surface_fg()
         1.00 * fadein_counter
     );
     fadein_counter -= precision;
+}
+
+function loop_music()
+{
+    music_bg.setVolume(0.1); // forcing the setup
+
+    if(music_bg.isPlaying() == false)
+    {
+        music_bg.play();
+    }
 }

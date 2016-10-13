@@ -1,18 +1,18 @@
 /*
-    Todo:
-        Genetic evolution
-
-    Unsure:
-        Change direction on walls
-
-    Done:
-        Reset on tag
-        Basic evade
-        Maps function:
-            Snow map
-            Sand map
-        Evade speed variation
-        Falling Particles
+ * No Copyrights Infringement is intended. If anything was used that may have
+ * copyrights, please let me know and I will remove it.
+ *
+ * This is a video game using P5.js to explore the playfulness of a gameplay.
+ * It is based on the movie Eternal Sunhsine of the Spotless Mind.
+ * There is a corelation with the movie characters and the game.
+ * For more on this matter, read process.html.
+ *
+ * Concordia University
+ * CART 351 : Networks & Navigation
+ * Written by Vsevolod (Seva) Ivanov
+ *
+ * TODO:
+ *      - Genetic Programming see: learn_evasion()
 */
 
 var joel,
@@ -36,10 +36,12 @@ var maps,
     falling_snow;
 
 // used by noise for smooth clemantine evasion
-var xoff = 0.0;
+var xoff = 0.0,
+    evading_speedup = 3,
+    dropping_speed_by = 0.005;
 
 var music_bg,
-    therapy_counter = 1;
+    treatment_counter = 1
 
 function preload()
 {
@@ -165,7 +167,8 @@ function init_characters()
 
 function reset_game()
 {
-    therapy_counter++;
+    treatment_counter++;
+    learn_evasion();
 
     load_next_map();
     falling_snow.colors.fill(maps[current_map].colors.particles);
@@ -214,8 +217,9 @@ function draw()
     fadein_surface_fg();
     camera.off();
 
+    // Top right corner text
     fill(0, 0, 0, 70);
-    text('Therapy ' + therapy_counter, 10, 30);
+    text('Memory treatment ' + treatment_counter, 10, 30);
     textSize(40);
 }
 
@@ -246,6 +250,18 @@ function set_sprite_image_according_to_poles(sprite, images)
     sprite.animation.images[0] = animation_image;
 }
 
+function learn_evasion()
+{
+    // Clementine can start by going faster on evasions
+    randomSeed(treatment_counter / 10);
+
+    // Clementine will could go faster on evasion
+    evading_speedup += (treatment_counter / 2);
+
+    // Clemetine will run away further by dropping speed slowly
+    dropping_speed_by /= treatment_counter;
+}
+
 function handle_sprites_interactions(catching, evading)
 {
     var distance_x = Math.abs(
@@ -265,7 +281,7 @@ function handle_sprites_interactions(catching, evading)
     else if(distance_x < 250 && distance_y < 250)
     {
         xoff += 0.01;
-        var n = noise(xoff) * 3;
+        var n = noise(xoff) * evading_speedup;
 
         evading.velocity.x = catching.velocity.x * n;
         evading.velocity.y = catching.velocity.y * n;
@@ -276,11 +292,9 @@ function handle_sprites_interactions(catching, evading)
         // Dropping gradually velocity
         if (xoff > 0.00)
         {
-            var down_by = 0.01;
-            xoff -= down_by;
-
-            evading.velocity.x -= down_by;
-            evading.velocity.y -= down_by;
+            xoff -= dropping_speed_by;
+            evading.velocity.x -= dropping_speed_by;
+            evading.velocity.y -= dropping_speed_by;
         }
         // Clementine can't see Joel
         else

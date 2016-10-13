@@ -4,9 +4,7 @@
         <meta charset="utf-8">
         <meta name="author" content="Seva Ivanov">
         <meta name="description" content="CART 351 : Networks & Navigation">
-
         <link type="text/css" rel="stylesheet" href="process.css" />
-
         <style type="text/css">
             #main, #main a {color: black; background: white;}
             #main, #main p {text-align: center; line-height: 1.5;}
@@ -19,20 +17,16 @@
     <body>
         <div id="main">
             <p class="header">Eternal Sunshine Game</p>
-
             <p>
                 <i>
                     Use p5.js to create a web page that is a playful/toy-like homepage for a fictional character from a novel/film/TV show/videogame/etc. of your choice. You should focus your attention on how you can create interactivity with p5 to communicate something about the character’s personality/nature/story. Avoid a reliance on explanatory text, images, etc.
                 </i>
             </p>
-
-            
             <p class="header">Week 1 : Research</p>
-
             <p>
-                I decided to take the challenge of implementing Genetic Programming for this video game. I never did any video game or Processing before but I have some experience in programming. I decided to attempt at learning and implementing everything by myself.
+                I decided to take the challenge of implementing Genetic Programming for this video game. I never worked on a video game or did any Processing before but I did have some experience in programming. I decided to attempt learning and implementing everything by myself.
                 </br></br>
-I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="http://natureofcode.com/book/chapter-9-the-evolution-of-code/">Nature of Code</a> book. It was very interesting and it seemed feasible but the hardest part was to find its usage. In one sentence, Genetic Programming allows you to set a sort of evolutionnary system where based on a fitness score, mutation and parents, the algorithm adapts to perform better at each new iteration (generation).
+I started by reading <i>Chapter 9. The Evolution of Code</ifrom the <a href="http://natureofcode.com/book/chapter-9-the-evolution-of-code/">Nature of Code</a> book. It was very interesting and it seemed feasible but the hardest part was to find its usage. In one sentence, Genetic Programming allows you to set a sort of evolutionnary system where based on a fitness score, mutation and parents, the algorithm adapts to perform better at each new iteration (generation).
                 </br></br>
                 <b>Where should I use it?</b>
                 </br></br>
@@ -44,7 +38,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                By looking at the example of <a href="http://boxcar2d.com/">BoxCar 2D</a>, you realize that one way of using this type of programming would be allowing a user to influence the evolution of your code by altering various parameters i.e. the number of wheels of your car. However, this creates a more greater challenge of actually finding a concepts that allows a playful interaction without becoming cumbersome and confusing the user. In the context of this challenge we have to implement a game that tells something about a fictional character and it engages the user into an amusing gameplay without actually distracting the player from the main goal of learning about our character.
+                By looking at the example of <a href="http://boxcar2d.com/">BoxCar 2D</a>, you realize that one way of using this type of programming would be to allow a user to influence the evolution of your code by altering various parameters i.e. the number of wheels of your car. However, this creates a greater challenge in actually finding a concept that allows a playful interaction without becoming cumbersome and confusing to the user. In the context of this challenge, we have to implement a game that tells something about a fictional character and that engages the user into an amusing gameplay without actually distracting the player from the main goal of learning about the character.
                 </br></br>
                 <b>2. Algorithm on its own</b>
             </p>
@@ -54,23 +48,21 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                This approach is well demonstrated in <a href="http://www.blprnt.com/smartrockets/">Smart Rockets</a>. A player doesn't control the evolutionnary system but is an observer of its behavior. The rockets attempt to adapt to obstacles in order to hit the target after learning from its mistakes over several generations. This concept leverages the gameplay complexity and creates an opportunity of creating a simplistic intelligent system that could adapt to the user's behavior to increase the gameplay difficulty level.
+                This approach is well demonstrated in <a href="http://www.blprnt.com/smartrockets/">Smart Rockets</a>. A player doesn't control the evolutionnary system but is an observer of its behavior. The rockets attempt to adapt to obstacles in order to hit the target after learning from its mistakes over several generations. This concept leverages the gameplay complexity and creates an opportunity to create a simplistic intelligent system that could adapt to the user's behavior to increase the gameplay difficulty level.
             </p>
 
             <p class="header">Week 2 : Concept</p>
 
             <p>
-                At first, I started by looking into an original gameplay involving movement. The movie <a href="https://en.wikipedia.org/wiki/Run_Lola_Run">Run Lola Run</a> provided an interesting idea of mouving from point A to point B in a perpetual and repeating motion that starts over and over again. In the movie each time that Lola doesn't saves her boyfriend she dies and starts over again. This creates an opportunity for a system that evolves each time with a new iteration of an endless gameplay. However, this concept lacks originality as the user will have to run through obstacles which creates a typical running 2d gameplay.
+                At first, I started by looking into an original gameplay involving movement. The movie <a href="https://en.wikipedia.org/wiki/Run_Lola_Run">Run Lola Run</a> provided an interesting idea of moving from point A to point B in a perpetual and repeating motion that starts over and over again. In the movie, each time that Lola doesn't saves her boyfriend, she dies and starts over again. This creates an opportunity for a system that evolves each time and provides a new iteration for an endless gameplay. However, this concept lacks originality as the user would have to run through obstacles, which creates a typical running 2D gameplay.
                 </br></br>
-                From this point, I thought of using the emotional human aspect that is often lacking in video games. Thinking of a past long-term relationship brought me into thinking of what it represents losing someone very close over a longer timeframe. What is interesting is as time goes by everything slowly fades away but at the same time, these memories rise up as something very unique from this relation shows up. It reminded me about the movie <a href="https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind">Eternal Sunshine of the Spotless Mind</a> where both of the lovers end up undergoing memories erasing procedures which creates a sort of confusing mental state of seeing for a short time everything as it was in the past before realizing that it is only a memory.
+                From this point, I thought of using the emotional human aspect that is often lacking in video games. Thinking of a past long-term relationship brought me to reflect on what it represents to lose someone very close over a longer timeframe. What is interesting is as the time goes by, everything slowly fades away but at the same time these memories rise up as something very unique from this relationship shows up. It reminded me about the movie <a href="https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind">Eternal Sunshine of the Spotless Mind</a> where both of the lovers end up with undergoing memories erasing procedures, which creates a sort of confusing mental state of seeing for a short time everything as it was in the past, before realizing that it was only a memory.
                 </br></br>
-                The gameplay will have a vast map and two characters namely Joel & Clementine. Joel will attempt to catch Clementine. Once he succeeds the game will restart all over again and he will have to find and catch Clementine that will become harder to catch. This would create a non-linear gameplay telling the story of an undergoing memory erasing procedure between the two lovers. As the player advances in the game, he therapy advances and eventually it erases completly the possibility of getting your hands on the memories of this person. Moreover, it would create an analogy of the notion of time and its unstoppable progression swallowing everything from the past.
+                The gameplay will have a vast map and two characters named Joel & Clementine. Joel will attempt to catch Clementine. Once he succeeds, the game starts all over again and he will have to find and catch Clementine, who will become harder to catch. This would create a non-linear gameplay telling the story of an undergoing memory erasing procedure between the two lovers. As the player advances in the game, the therapy advances and eventually, it completely erases the possibility of getting your hands on the memories of this person. Moreover, it would create an analogy of the notion of time and its unstoppable progression, swallowing everything from the past.
             </p>
-
             <p class="header">Week 2 : Maps</p>
-            
             <p>
-                I started by creating two maps which alter between each iteration. In the movie there were two scenes, one being at the beach with falling snow and another one being at the frozen lake also with falling snow. I wanted to create a map with sand which brought me at attempting to load a background image of sand :
+                I started by creating two maps which alter between each iteration. In the movie there were two scenes, one being at the beach with falling snow and another one being at the frozen lake, also with falling snow. I wanted to create a map with sand which made me attempt to load a background image of sand :
             </p>
             <div class="images">
                 <a href="process/bg-sand-image.png">
@@ -78,7 +70,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                This was an unsucceful idea as I realized that a huge map will demand a repetition of the background creating a background with questionable aesthetics. This brought me into trying the generation and spreading my own particles using p5.play library :
+                This was an unsuccessful idea, as I realized that a huge map will demand a repetition of the background creating a background with questionable aesthetics. This brought me into trying the generation and spreading of my own particles using p5.play library :
             </p>
             <div class="images">
                 <a href="process/map-w-particles.png">
@@ -102,7 +94,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                At the beggining, I decided to create characters as abstract circle shapes using the draw function :
+                At the beginning, I decided to create characters as abstract circle shapes using the draw function :
             </p>
             <div class="images">
                 <a href="process/char-circles.png">
@@ -118,13 +110,13 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                However, I reached the limits of p5 drawing when I attempted to create a blur effect by applying a filter around the circles. The browser had a super long loading delay and a very lagy gameplay. <b>It brought me at trying the integrated p5's OpenGL which shutdowned my laptop by taking all of its RAM</b>. Prior to animation, I found two solutions :
+                However, I reached the limits of p5 drawing when I attempted to create a blur effect by applying a filter around the circles. The browser had a super long loading delay and a very laggy gameplay. <b>It brought me to trying the integrated p5's OpenGL which shutdowned my laptop by taking all of its RAM</b>. Prior to animation, I found two solutions :
                 </br></br>
                 &nbsp;&nbsp;&nbsp;&nbsp;1. Build your shape using CSS</li>
                 </br>
                 &nbsp;&nbsp;&nbsp;&nbsp;2. Create your image in Adobe Illustrator</li>
                 </br></br>
-                One more thing I wanted to add is the falling snow. We have snow on the ground, let's explore the particles library of p5 to attempt creating falling snow : 
+                One more thing I wanted to add is the falling snow. We have snow on the ground, so let's explore the particles library of p5 to attempt creating falling snow :
             </p>
             <div class="images">
                 <a href="process/code-falling-snow.png">
@@ -132,14 +124,13 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                To my suprise, it was very straight forward. The only part that I stumbled upon by hazard is the <i>dxy</i> argument that created the desired effect of snow falling from many places at the same time rather than having one unique source acting as a particles fountain.
+                To my suprise, it was very straight forward. The only part that I stumbled upon by chance is the <i>dxy</i> argument that created the desired effect of snow falling from many places at the same time rather than having one unique source acting as a particles fountain.
             </p>
-            
             <p class="header">Week 2 - 3 : Motions</p>
             <p>
-                It was definetly the hardess part for me. I never really did any game developement before and understanding the implementation of the physics right away is not fairily simple.
+                It was definitely the hardest part for me. I never really did any game development before and understanding the implementation of the physics right away was not fairly simple.
             </br></br>
-            Joel movement is controlled by the mouse position which allow very interesting speed variations:
+            Joel's movement is controlled by the mouse position which allows very interesting speed variations:
             </br></br>
             <i>joel.velocity.x = (camera.mouseX-joel.position.x)/20;</i></br>
             <i>joel.velocity.y = (camera.mouseY-joel.position.y)/20;</i>
@@ -152,7 +143,7 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 </a>
             </div>
             <p>
-                The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine random evasion which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy movements because the random numbers jumped to quickly thus making the velocity changing in a too much rigid way. This brought me at trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) : 
+                The main idea was to use velocity (speed) as a motion key element. However, to create an impression of Clementine's random evasion, which in turn gives her an intelligent being's interaction behavior, I had to use random velocity from a certain distance. By using the Math.random() function, I had very sharp and laggy movements because the random numbers jumped to quickly, thus making the velocity changing in a too much rigid way. This brought me to trying Noise() which in simple - creates a smooth transition between random numbers. Then, I implemented the first point (where xoff is initialized to 0.00) :
             </p>
             <div class="images">
                 <a href="process/motions-1.png">
@@ -174,7 +165,6 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                 <i>limit_sprite_position(joel, 0);</i></br>
                 <i>limit_sprite_position(joel, 200);</i>
             </p>
-            
             <p class="header">Week 3 : Characters Design</p>
             <p>
                 Finally, at the end of the last week, I have time for characters artwork. At first, I thought of using abstract glowing balls with colors corresponding to movie characters ones :
@@ -184,9 +174,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                     <img src="process/j-ball.png"></img>
                 </a>
             </div>
-
             <p>
-                After reflexion, these balls are too abstract for people to relate to them. It led me to explore a way to design characters to match my map and gameplay visuals. I really liked the aesthetics as well as the gameplay of the <a href="https://en.wikipedia.org/wiki/Journey_(2012_video_game)">Journey (2012 video game)</a> made by ThatGameCompagny which brought me into creating a hovering characters :
+                After some thinking, these balls are too abstract for people to relate to them. It led me to explore a way to design characters to match my map and gameplay visuals. I really liked the aesthetics as well as the gameplay of the <a> href="https://en.wikipedia.org/wiki/Journey_(2012_video_game)">Journey (2012 video game)</a> made by ThatGameCompagny which brought me into creating a hovering characters :
             </p>
             <div class="images">
                 <a href="process/joel-ai.png">
@@ -199,7 +188,6 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
                     <img src="process/c-1.png"></img>
                 </a>
             </div>
-
             <p>
                 To bind them to motions, I used velocity to determine the poles :
             </p>
@@ -227,8 +215,8 @@ I started by reading <i>Chapter 9. The Evolution of Code</i> from the <a href="h
             <p>
                 The questionable Clemetine's hair were removed. The cap looking scarf from behind was changed and colors are looking way better by the use of gradient. We can clearly see the enhancement of the Design.
             </p>
-
-            <p class="header">Overview : Time <small>time <small>time</small> ...</small></small></p>
+            <p class="header">Overview : Time <small>time
+<small>time</small> ...</small></small></p>
             <p>
                 I am now writting this report and I do realize that I didn't had the time to implement the Genetic Programming. The project was undertaken by the majority as a team project. Plus, I switched class section which gave me only 2.5 weeks for it. Nevertheless, I wanted to test my limits from which I take an important lesson :
                 </br></br>

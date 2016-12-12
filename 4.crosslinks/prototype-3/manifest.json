@@ -1,0 +1,48 @@
+{
+  "manifest_version": 2,
+
+  "name": "Crosslinks",
+  "author": "Vsevolod Ivanov",
+  "description": "Exploring the Web with a playful gameplay",
+  "version": "1.0",
+
+  "icons": {
+    "48" : "images/icon.png"
+  },
+
+  "content_scripts": [
+    {
+      "js": [
+          "js/content_script.js",
+          "js/utils.js",
+          "libs/jquery.min.js",
+          "libs/p5.js",
+          "libs/p5.dom.js",
+          "libs/p5.play.js",
+          "libs/cellauto.js"
+      ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+    }
+  ],
+
+  "background": {
+    "scripts": ["js/background_script.js"]
+  },
+
+  "browser_action": {
+    "default_title": "Crosslinks",
+    "default_icon": {
+      "45": "images/icon.png"
+    }
+  },
+
+  "web_accessible_resources": [
+    "images/whiteDoor.png",
+    "images/blackDoor.png"
+  ],
+
+  "permissions": [
+    "activeTab"
+  ]
+}

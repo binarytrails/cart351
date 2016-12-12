@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+
+  "name": "Crosslinks",
+  "author": "Vsevolod Ivanov",
+  "description": "p5 party",
+  "version": "1.0",
+
+  "icons": {
+    "48" : "cross.png"
+  },
+
+  "content_scripts": [
+    {
+      "js": [
+          "content_script.js",
+          "cellauto.js",
+          "utils.js",
+          "libs/jquery.min.js",
+          "libs/p5.js",
+          "libs/p5.dom.js"
+      ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+    }
+  ],
+
+  "background": {
+    "scripts": ["background_script.js"]
+  },
+
+  "browser_action": {
+    "default_title": "worker",
+    "default_icon": {
+      "45": "cross.png"
+    }
+  },
+
+  "web_accessible_resources": [
+    "trees100.png",
+    "portal.png",
+    "images/girlGif.png",
+    "images/walkGif.png",
+    "images/walkGif.gif",
+    "images/runGif.png",
+    "images/heartGif.png"
+  ],
+
+  "permissions": [
+    "activeTab"
+  ]
+}

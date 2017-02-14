@@ -1,0 +1,6 @@
+[submodule "3.evil-ai"]
+	path = 3.evil-ai
+	url = https://github.com/sevaivanov/netminded
+[submodule "4.crosslinks/final"]
+	path = 4.crosslinks/final
+	url = https://github.com/sevaivanov/crosslinks
